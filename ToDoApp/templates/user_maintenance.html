@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>ユーザー管理画面</h2>
+
+<div>
+  <a href="{{ url_for('register' )}}">
+      ユーザー登録
+  </a>
+</div>
+
+<table>
+  <thead>
+      <tr>
+          <th>ID</th>
+          <th>ユーザー名</th>
+          <th>メールアドレス</th>
+      </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+      <tr>
+          <td>{{ user.id }} </td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

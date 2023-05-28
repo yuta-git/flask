@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main>
+  <div id="title" class="title">
+    TODO 入力
+  </div>
+  <form name="f" method="post">
+    <div class="text_area">
+      <input type="text" name="new_text" id="new_text">
+    </div>
+    <table>
+      <div>長押しすると完了</div>
+      {% for todo in todos.all() %}
+      <tr>
+        <td
+          class="card"
+          id="task_{{todo.id}}"
+          style="{% if todo.status == 1 %}background-color:#FFFF00;{% else %}background-color:#FFFFFF;{% endif %}"
+          task_id="{{todo.id}}">{{ todo.content }}
+        </td>
+
+        <td class="td_update_txt" id="update_txt_{{todo.id}}">
+          <input type="text" class="txt_update" name="update_txt" task_id="{{ todo.id }}" value="{{ todo.content }}">
+        </td>
+        <td class="button">
+          <button type="button" name="btn_update" value="{{ todo.id }}">変更</button>
+        </td>
+
+        <td class="button">
+          <button type="button" name="btn_delete" value="{{ todo.id }}">削除</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <input type="hidden" name="id" id="id">
+    <input type="hidden" name="text" id="text">
+    <input type="hidden" name="user_id" value="{{ current_user.id }}">
+  </form>
+</main>
+
+{% endblock %}

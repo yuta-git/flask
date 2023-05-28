@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{name}}</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+  </head>
+  <a href="/logout">ログアウトする</a>
+  <body>
+    {% if name == "ito" %}
+    <h1>スペシャル{{name}}神社</h1>
+    {% elif name %}
+    <h1>{{name}}神社</h1>
+    {% else %}
+    <h1>ただの神社</h1>
+    {% endif %}
+    
+
+    <img class="top-image" src="/static/images/pengin.jpg" alt="ペンギン">
+
+    <!-- 追加 -->
+    <form action="/add" method="post">
+      <input type="text" name="title" placeholder="title">
+      <input type="text" name="body" placeholder="body">
+      <input type="submit" value="Add">
+    </form>
+
+    <!-- 更新 -->
+    <form action="/update" method="post" id="update">
+      <input type="text" name="title" placeholder="title">
+      <input type="text" name="body" placeholder="body">
+      <input type="submit" value="Update">
+    </form>
+
+    <!-- 削除 -->
+    <form action="/delete" method="post" id="delete">
+      <input type="submit" value="Delete Selected All Onegai">
+    </form>
+
+      {% for onegai in all_onegai %}
+      <div>
+        <!-- formタグのid属性とinputタグのform属性を合わせる -->
+        <input type="radio" name="update" form="update" value={{onegai.id}}>
+        <input type="checkbox" name="delete" form="delete" value={{onegai.id}}>
+        {{onegai.title}}:{{onegai.body}}({{onegai.date}})
+      </div>
+      {% endfor %}
+  </body>
+</html>
+
